@@ -8,12 +8,9 @@
     /* --- New Vibrant Color Palette --- */
     :root {
       --primary: #4776E6;
-      /* A modern blue-to-purple gradient for main actions */
       --primary-grad: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
-      /* A distinct teal accent for secondary actions */
       --secondary: #00b09b; 
       --success: #28a745;
-      /* Subtle background gradient instead of flat grey */
       --bg-grad: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       --card-bg: #ffffff;
       --text: #333;
@@ -23,11 +20,9 @@
 
     body.dark-mode {
       --primary: #5a8dee;
-      /* Lighter, brighter gradient for dark mode contrast */
       --primary-grad: linear-gradient(135deg, #3ab5e8 0%, #6b4ce6 100%);
       --secondary: #33c3f0;
       --success: #4cd964;
-      /* Deep dark gradient background */
       --bg-grad: linear-gradient(135deg, #232526 0%, #414345 100%);
       --card-bg: #1e1e1e;
       --text: #e0e0e0;
@@ -37,14 +32,14 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg-grad); /* Applied gradient bg */
+      background: var(--bg-grad);
       color: var(--text);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       margin: 0;
-      padding: 20px 0; /* Added padding for mobile scroll */
+      padding: 20px 0;
       transition: background 0.3s, color 0.3s;
     }
 
@@ -68,7 +63,6 @@
     .profile-info h2 {
       margin: 0;
       font-size: 1.4rem;
-      /* Slight gradient text effect on the name */
       background: var(--primary-grad);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -79,7 +73,7 @@
       font-weight: 500;
     }
 
-    /* Coloured Theme Toggle */
+    /* Theme Toggle */
     .theme-toggle {
       background: transparent;
       border: 2px solid var(--primary);
@@ -101,7 +95,6 @@
       background: var(--card-bg);
       padding: 30px;
       border-radius: 16px;
-      /* Softer, more modern shadow */
       box-shadow: 0 10px 30px -10px rgba(0,0,0,0.15);
       text-align: center;
       transition: background 0.3s, box-shadow 0.3s;
@@ -113,7 +106,7 @@
         color: var(--text);
     }
 
-    /* Vibrant Stats Dashboard */
+    /* Stats Grid */
     .stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -129,15 +122,12 @@
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0,0,0,0.02);
     }
-    /* Top accent bars for stats */
     .stat-box::before {
         content: ''; position: absolute; top:0; left:0; width: 100%; height: 4px;
     }
-    /* Stat 1: Status (Green accent) */
     .stat-box.status::before { background: var(--success); }
     .stat-box.status .stat-number { color: var(--success); }
     
-    /* Stat 2: Success Rate (Primary Gradient accent) */
     .stat-box.rate::before { background: var(--primary-grad); }
     .stat-box.rate .stat-number { color: var(--primary); }
 
@@ -187,7 +177,6 @@
     }
     button:active { transform: scale(0.98); }
 
-    /* Main Boost Button - Gradient */
     #increaseBtn {
       background: var(--primary-grad);
       box-shadow: 0 4px 15px -5px var(--primary);
@@ -199,15 +188,13 @@
       cursor: not-allowed;
     }
 
-    /* Secondary Profile Button - Teal Accent */
     #saveNameBtn {
         background: var(--secondary);
         margin-bottom: 0;
     }
     #saveNameBtn:hover { background: var(--primary); }
 
-
-    /* Animations */
+    /* Animations & Utilities */
     .loader {
       width: 100%;
       height: 8px;
@@ -219,7 +206,6 @@
     }
     .loader-bar {
       height: 100%;
-      /* Gradient loader bar */
       background: var(--primary-grad);
       width: 0%;
       transition: width 0.2s linear;
@@ -238,7 +224,7 @@
 
     .timer {
       margin-top: 15px;
-      color: #e74c3c; /* A brighter red */
+      color: #e74c3c;
       font-size: 14px;
       font-weight: 600;
       background: rgba(231, 76, 60, 0.1);
@@ -246,7 +232,6 @@
       border-radius: 8px;
     }
     
-    /* Settings Section Labels */
     .settings-area { text-align: left; }
     .settings-area label {
       font-size: 13px;
@@ -260,7 +245,6 @@
 <body>
 
   <div class="container">
-    
     <div class="header">
       <div class="profile-info">
         <h2 id="userNameDisplay">Welcome, Guest</h2>
@@ -313,7 +297,6 @@
         <button id="saveNameBtn">Update Profile</button>
       </div>
     </div>
-
   </div>
 
   <script>
@@ -331,27 +314,22 @@
 
     const LOCK_TIME = 24 * 60 * 60 * 1000; // 24 hours
 
-    // --- 1. Initialization & Load Data ---
+    // --- Init ---
     function init() {
-      // Load Name
       const savedName = localStorage.getItem('userName');
       if (savedName) {
         userNameDisplay.textContent = `Hi, ${savedName}`;
         nameInput.value = savedName;
       }
-
-      // Load Theme
       const isDark = localStorage.getItem('darkMode') === 'true';
       if (isDark) {
         document.body.classList.add('dark-mode');
         themeBtn.textContent = '☀️ Light';
       }
-
-      // Check Timer
       checkLock();
     }
 
-    // --- 2. Theme Toggle ---
+    // --- Theme ---
     themeBtn.addEventListener('click', () => {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
@@ -359,13 +337,12 @@
       localStorage.setItem('darkMode', isDark);
     });
 
-    // --- 3. Profile Logic ---
+    // --- Profile ---
     saveNameBtn.addEventListener('click', () => {
       const name = nameInput.value.trim();
       if(name) {
         localStorage.setItem('userName', name);
         userNameDisplay.textContent = `Hi, ${name}`;
-        // Temporary visual feedback on the button
         const originalText = saveNameBtn.innerText;
         saveNameBtn.innerText = "Saved! ✓";
         saveNameBtn.style.background = "var(--success)";
@@ -376,19 +353,18 @@
       }
     });
 
-    // --- 4. Boost Logic (Simulated) ---
+    // --- Boost Logic ---
     function checkLock() {
       const lockUntil = Number(localStorage.getItem('lockUntil'));
       if (lockUntil && Date.now() < lockUntil) {
         increaseBtn.disabled = true;
         increaseBtn.textContent = "Locked for 24h 🔒";
-        increaseBtn.style.background = ""; // Reset gradient on disable
+        increaseBtn.style.background = "";
         startTimer(lockUntil);
       } else {
         localStorage.removeItem('lockUntil');
         increaseBtn.disabled = false;
         increaseBtn.textContent = "Start Boost ⚡";
-        timerDiv.textContent = '';
         timerDiv.style.display = 'none';
       }
     }
@@ -398,7 +374,7 @@
       function update() {
         const remaining = lockUntil - Date.now();
         if (remaining <= 0) {
-          checkLock(); // Re-run check to unlock
+          checkLock();
           return;
         }
         const h = Math.floor(remaining / (1000 * 60 * 60));
@@ -417,43 +393,37 @@
         document.getElementById('channelLink').focus();
         return;
       }
-
-      // Start Simulation Animation
       increaseBtn.disabled = true;
       increaseBtn.textContent = "Connecting to server...";
-      increaseBtn.style.background = "#999"; // Grey out while loading
+      increaseBtn.style.background = "#999";
       loader.style.display = 'block';
       messageDiv.innerHTML = '';
       timerDiv.style.display = 'none';
       let progress = 0;
 
       const interval = setInterval(() => {
-        progress += Math.random() * 15; // Faster loading for better UX
+        progress += Math.random() * 15;
         if(progress > 100) progress = 100;
         loaderBar.style.width = progress + '%';
 
         if(progress === 100) {
           clearInterval(interval);
-          setTimeout(finishBoost, 500); // Short delay at 100% before showing success
+          setTimeout(finishBoost, 500);
         }
       }, 150);
     });
 
     function finishBoost() {
-      // Get selected text, remove the emoji for the message
       let serviceText = serviceType.options[serviceType.selectedIndex].text;
       serviceText = serviceText.substring(serviceText.indexOf(' ') + 1);
-
       messageDiv.innerHTML = `<div class="success">🎉 Success! Sending ${serviceText} now.</div>`;
       loader.style.display = 'none';
       loaderBar.style.width = '0%';
-
       const lockUntil = Date.now() + LOCK_TIME;
       localStorage.setItem('lockUntil', lockUntil);
       checkLock();
     }
 
-    // Run on startup
     init();
   </script>
 </body>
